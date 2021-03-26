@@ -8,23 +8,58 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+class User_Fav(Base):
+    __tablename__ = 'user_Fav'
+    id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+    user_id = Column(Integer)
+    name = Column(String(50))
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+
+class User(Base):
+    __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    user_name = Column(String(50), nullable=False)
+    email = Column(String(50))
+    password = Column(String(50))
+    user_Fav = relationship(User_Fav)
+
+class Planet(Base):
+    __tablename__ = 'planet'
+    id = Column(Integer, primary_key=True)
+    planet_name = Column(String(50))
+    rotation_period = Column(Integer)
+    orbital_period= Column(Integer)
+    diameter = Column(Integer)
+    climate = Column(String(50))
+    gravity= Column(String(50))
+    terrain = Column(String(50))
+    population = Column(Integer)
+
+class People(Base):
+    __tablename__ = 'people'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    heigth = Column(Integer)
+    mass = Column(Integer)
+    hair_color = Column(String(50))
+    skin_color = Column(String(50))
+    eye_color = Column(String(50))
+    birth_year = Column(Integer)
+    gender = Column(String(50))
+
+class Vehicles(Base):
+    __tablename__ = 'vehicles'
+    id = Column(Integer, primary_key=True)
+    vehicle_name = Column(String(50))
+    model = Column(String(50))
+    passengers = Column(Integer)
+    consumable = Column(String(50))
+    starship_class = Column(String(50))
+    length = Column(Integer)
+    cargo_capacity = Column(Integer)
+    hyperdrive_rating = Column(Integer)
+
+
 
     def to_dict(self):
         return {}
